@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Insurance Cross Sell Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            color: #333;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        select{
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .radio-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+        }
+        .radio-group input {
+            margin-right: 5px;
+        }
+        .radio-group label {
+            margin: 0;
+            color: #333;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Health Insurance Cross Sell Prediction</h1>
+<div class="container">
+    <form action="/predict" method="POST">
+        <label for="age">Age</label>
+        <input type="number" id="age" name="age"min = 20 max = 100 value="{{ request.form.age if request.form else '' }}" required>>
+
+        <label>Previously Insured?</label>
+        <div class="radio-group">
+            <label><input type="radio" name="previously_insured" value=1 required> Yes</label>
+            <label><input type="radio" name="previously_insured" value=0 required> No</label>
+        </div>
+
+        <label for="vehicle_age">Age of Vehicle</label>
+        <select name="vehicle_age" id="vehicle_age">
+            <option value="> 2 Years">More than 2 yrs</option>
+            <option value="< 1 Year">Less than 1 yr</option>
+            <option value="1-2 Year">Between 1-2 yrs</option>
+        </select>
+
+        <label>Has your vehicle got damaged?</label>
+        <div class="radio-group">
+            <label><input type="radio" name="vehicle_damaged" value="Yes" required> Yes</label>
+            <label><input type="radio" name="vehicle_damaged" value="No" required> No</label>
+        </div>
+
+        <label for="channel_code">Code for channel for reaching customer</label>
+        <input type="number" id="policy_sales_channel" name="policy_sales_channel" min=1 max=200 value="{{ request.form.policy_sales_channel if request.form else '' }}" required>>
+
+        <button type="submit">Predict</button>
+    </form>
+</div>
+<h3> {{ text }} </h3>
+</body>
+</html>
